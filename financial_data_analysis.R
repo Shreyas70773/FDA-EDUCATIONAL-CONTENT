@@ -1,3 +1,4 @@
+# Ensure quantmod is loaded
 library(quantmod)
 library(xts) # xts will also be loaded with quantmod, but good to be explicit
 library(tseries)
@@ -233,3 +234,34 @@ lines(ses_forecast$mean, col = "darkgreen", lwd = 2)
 # Add a legend to make sense of the lines
 legend("topleft", legend = c("Holt-Winters", "Holt's (Trend)", "SES (Level only)", "Actual Data"),
        col = c("blue", "red", "darkgreen", "black"), lwd = 2, bty = "n")
+
+# Recall our AirPassengers data is in the 'AP' object
+
+# --- Step 1: Let auto.arima find the best model ---
+# The function will handle log transformations, differencing, and model selection.
+# We set trace=TRUE to see what it's trying.
+sarima_fit <- auto.arima(AP, trace = TRUE, stepwise = FALSE, approximation = FALSE)
+
+# --- Step 2: Examine the chosen model ---
+print(summary(sarima_fit))
+# The output will show the chosen ARIMA(p,d,q)(P,D,Q)[m] model and its coefficients.
+
+# --- Step 3: Check residuals ---
+# Just like before, the residuals should be white noise.
+checkresiduals(sarima_fit)
+# The checkresiduals() function conveniently provides a Ljung-Box test, ACF plot, and histogram.
+
+# --- Step 4: Generate and plot the forecast ---
+sarima_forecast <- forecast(sarima_fit, h = 60)
+
+plot(sarima_forecast, main = "Forecast from auto.arima (SARIMA)",
+     ylab = "Number of Passengers", xlab = "Year")
+
+
+# Recall our AAPL log returns are in 'aapl_log_returns'
+# Volatility is often analyzed using squared or absolute returns.
+aapl_sq_returns <- aapl_log_returns^2
+
+# Plot the ACF of the squared returns (our proxy for volatility)
+# We'll use a long lag to see the decay pattern.
+acf(aapl_sq_returns, main = "ACF of AAPL Squared Returns (Volatility)", lag.max = 100)
