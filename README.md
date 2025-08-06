@@ -24,15 +24,33 @@ The current version includes hands-on code and explanations for:
 
 🔁 ACF and PACF analysis for both price and return series
 
-🔧 Fitting ARIMA models: AR(1), MA(1), and White Noise model with residual diagnostics
+🔧 Fitting ARIMA models:
 
-📦 Time series forecasting with AirPassengers dataset using:
+AR(1), MA(1), and White Noise models on returns
+
+Residual diagnostics with ACF and Ljung-Box test
+
+🔮 Forecasting time series (AirPassengers):
 
 Simple Exponential Smoothing (SES)
 
 Holt’s Linear Trend method
 
 Full Holt-Winters (Multiplicative) method
+
+Forecast plots with clear legends
+
+🤖 SARIMA Modeling:
+
+Automatic model selection using auto.arima()
+
+Model summary, residual checks with checkresiduals()
+
+Forecasting and visualization
+
+⚡ Volatility Analysis:
+
+ACF of squared log returns for detecting volatility clustering
 
 📂 File Structure
 financial_data_analysis.R – The main and only file (so far). All code is annotated clearly to explain every step and theory behind it.
@@ -49,3 +67,6 @@ moments
 
 forecast
 
+stats
+
+TSA (indirectly used via forecast and tseries functionality)
