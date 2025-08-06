@@ -52,7 +52,8 @@ Forecasting and visualization
 
 ACF of squared log returns for detecting volatility clustering
 
-📂 File Structure
+📂 File Structure:
+
 financial_data_analysis.R – The main and only file (so far). All code is annotated clearly to explain every step and theory behind it.
 
 
